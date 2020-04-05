@@ -22,7 +22,7 @@ app.current_id = 3
 def home():
     return render_template('index.html',posts=post_store.get_all())
 
-@app.route('/add_post',methods=['GET','POST'])
+@app.route('posts/add',methods=['GET','POST'])
 def post_add():
     if request.method=='POST':
         new_post=Post( id = app.current_id,
