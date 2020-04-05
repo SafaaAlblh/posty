@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,request,redirect,url_for
 from story import Post, PostStore
 
 app = Flask(__name__)
@@ -15,14 +15,13 @@ dummy_posts = [
 post_store = PostStore()
 post_store.add(dummy_posts[0])
 post_store.add(dummy_posts[1])
-
 app.current_id = 3
 
 @app.route('/')
 def home():
     return render_template('index.html',posts=post_store.get_all())
 
-@app.route('posts/add',methods=['GET','POST'])
+@app.route('/posts/add',methods=['GET','POST'])
 def post_add():
     if request.method=='POST':
         new_post=Post( id = app.current_id,
@@ -34,9 +33,8 @@ def post_add():
         app.current_id +=1
         return redirect(url_for('home')) 
     else:
-        return render_template('add_post.html')
-
-@app.route('/posts/delete/<int:id>')    
+        return render_template('post-add.html')
+@app.route('/posts/delete/<int:id>')
 def post_delete(id):
     post_store.delete(id)
     return redirect(url_for('home'))
@@ -54,7 +52,7 @@ def post_update(id):
         return redirect(url_for('home')) 
     else:
         post = post_store.get_by_id(id)
-        return render_template('post_update.html',post=post)
+        return render_template('post-update.html',post=post)
 
 if __name__ == "__main__":
     app.run(debug=True)
