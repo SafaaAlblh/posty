@@ -36,5 +36,10 @@ def post_add():
     else:
         return render_template('add_post.html')
 
+@app.route('/posts/delete/<int:id>')    
+def post_delete(id):
+    post_store.delete(id)
+    return redirect(url_for('home'))
+
 if __name__ == "__main__":
     app.run(debug=True)
