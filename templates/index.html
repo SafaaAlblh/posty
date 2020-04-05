@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POOSTY</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+    <title>Posty</title>
 </head>
-<body>
-  <div>
-      <div>POSTY</div>
-      <div> <a href="posts/add"> new </a></div>
-  </div>
-  
 
-  <div>
-    {% for post in posts %}
-      <div>
-          <div>
-              <img src={{post.photo_url}} height="300" width="200">
-          </div>
-          <div>
-              {{post.name}}
-          </div>
-          <p>
-              {{post.body}}
-          </p> 
-          <div>
-              <a href="{{ url_for('post_update', id=post.id) }}"> edit </a>  | 
-              <a href="{{ url_for('post_delete', id=post.id) }}">  delete </a>
-          </div>
-      </div>
-    {% endfor  %}
-  </div>
+<body>
+    <header>
+        <h1>Posty</h1>
+        <nav>
+            <a href="/posts/add">New</a>
+        </nav>
+    </header>
+
+    <main>
+        {% for post in posts %}
+            <article>
+                <div>
+                    <img src="{{post.photo_url}}">
+                </div>
+                <div>
+                    <h2>{{post.name}}</h2>
+                    <p>{{post.body}}</p>
+                    <div class="btn-section">
+                        <a href="{{ url_for('post_update', id=post.id) }}"> edit </a>  | 
+                        <a href="{{ url_for('post_delete', id=post.id) }}">  delete </a>
+                    </div>
+                </div>
+
+            </article>
+        {% endfor  %}
+    </main>
+
 </body>
 
 </html>
